@@ -1,0 +1,62 @@
+/*	@author	:	Zanuar ER & Faridah Dewi Khansa
+	NIM		:	1177050123 & 1177050042
+	Strategi Algoritma - Linear Search
+	C++
+	source	:	https://www.geeksforgeeks.org/linear-search/
+				https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
+				http://www.cplusplus.com/forum/beginner/5527/
+*/				
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <time.h>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono;
+
+//linear search
+int search(int arr[], int n, int x) 
+{ 
+    int i; 
+    for (i = 0; i < n; i++) 
+        if (arr[i] == x) 
+            return i; 
+    return -1; 
+} 
+
+int main(){
+	cout<<"Linear Search\n";
+	
+	int size = 10000000;
+	int* arr= new int[size];
+	cout<<"array dibuat : "<<size<<endl;
+	srand((unsigned)time(0));
+	
+	for (int i=0; i<size; i++){
+		arr[i] = (rand()%size)+1;
+		//cout << arr[i] << " ";
+	}
+	
+	// x = bilangan yang dicari
+	int x;
+	cout<<"masukan bilangan yg dicari : ";
+	cin>>x;
+	
+	//time start
+	auto start = high_resolution_clock::now();
+	
+	//linear search
+	int result = search(arr, size, x); 
+    (result == -1) ? cout << "\nElement is not present in array"
+                   : cout << "\nElement is present at index " << result;
+                   
+    auto stop = high_resolution_clock::now(); 
+    
+    auto duration = duration_cast<microseconds>(stop - start);
+    
+    cout << "\nTime taken by function: "
+         << duration.count() << " microseconds" << endl; 
+    return 0;
+}
