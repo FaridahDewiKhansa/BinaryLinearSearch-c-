@@ -1,0 +1,73 @@
+/*	@author	:	Zanuar ER & Faridah Dewi Khansa
+	NIM		:	1177050123 & 1177050042
+	Strategi Algoritma - Binary Search
+	C++
+	source	:	https://www.geeksforgeeks.org/binary-search/
+				https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
+				
+*/				
+
+#include <iostream>
+#include <cstdlib>
+#include <chrono> 
+
+using namespace std;
+using namespace std::chrono; 
+
+int binarySearch(int arr[], int l, int r, int x) 
+{ 
+    while (l <= r) { 
+        int m = l + (r - l) / 2; 
+  
+        // Check if x is present at mid 
+        if (arr[m] == x) 
+            return m; 
+  
+        // If x greater, ignore left half 
+        if (arr[m] < x) 
+            l = m + 1; 
+  
+        // If x is smaller, ignore right half 
+        else
+            r = m - 1; 
+    } 
+  
+    // if we reach here, then element was 
+    // not present 
+    return -1; 
+} 
+
+int main(){
+	cout<<"Binary Search\n";
+	
+	int size = 1000000000;
+	int* arr= new int[size];
+	
+	cout<<"array dibuat : "<<size<<endl;
+	
+	for(int i=0; i<size; i++){
+		arr[i]=i+1;
+	}
+	
+	// x = bilangan yang dicari
+	int x;
+	cout<<"masukan bilangan yg dicari : ";
+	cin>>x;
+	
+	//time start
+	auto start = high_resolution_clock::now();
+	
+	//binary search
+	int result = binarySearch(arr, 0, size, x); 
+    (result == -1) ? cout << "\nElement is not present in array"
+                   : cout << "\nElement is present at index " << result;
+                   
+    auto stop = high_resolution_clock::now(); 
+    
+    auto duration = duration_cast<microseconds>(stop - start);
+    
+    cout << "\nTime taken by function: "
+         << duration.count() << " microseconds" << endl; 
+  
+    return 0; 
+}
